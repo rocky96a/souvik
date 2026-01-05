@@ -1,0 +1,83 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Gift 🎁</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 20px;
+    background: radial-gradient(circle,#020111,#000);
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px gold;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+    gap: 15px;
+}
+
+img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+}
+
+canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎆 Happy New Year Blessings 🎆</h1>
+
+<div class="gallery">
+    <img src="https://www.google.com/imgres?q=dakshineswar%20kali%20temple%20photos&imgurl=https%3A%2F%2Fsannidhi.net%2Fwp-content%2Fuploads%2F2023%2F10%2Fdakshineshwar_kali2.png&imgrefurl=https%3A%2F%2Fsannidhi.net%2Fsannidhi%2Fshri-dakshineswar-kali-temple-dakshineshwar-kolkata-west-bengal%2F&docid=03JJ-ox8E4sEfM&tbnid=aJnz9x1Hbsnp4M&vet=12ahUKEwjk0IeP7OmRAxV4zTgGHSM-HbEQM3oECB0QAA..i&w=512&h=617&hcb=2&ved=2ahUKEwjk0IeP7OmRAxV4zTgGHSM-HbEQM3oECB0QAA.jpg">
+    <img src="https://i.imgur.com/0j8QFhZ.jpg">
+    <img src="https://i.imgur.com/2JYF8zA.jpg">
+    <img src="https://i.imgur.com/F2dFZgK.jpg">
+    <img src="https://i.imgur.com/zY9J9dF.jpg">
+    <img src="https://i.imgur.com/kGkJZrZ.jpg">
+print("✔ Server running at https://localhost:8000/index.html")print("✔ Server running at https://localhost:8000
+
+<canvas id="fx"></canvas>
+
+<script>
+const c=document.getElementById("fx"),x=c.getContext("2d");
+c.width=innerWidth;c.height=innerHeight;
+let p=[];
+function blast(a,b){
+    const col=["#ff0","#f00","#0ff","#fff"];
+    for(let i=0;i<50;i++)
+        p.push({x:a,y:b,vx:(Math.random()-.5)*7,vy:(Math.random()-.5)*7,l:60,c:col[Math.floor(Math.random()*4)]});
+}
+function run(){
+    x.clearRect(0,0,c.width,c.height);
+    p.forEach((d,i)=>{
+        d.x+=d.vx;d.y+=d.vy;d.l--;
+        x.fillStyle=d.c;
+        x.beginPath();x.arc(d.x,d.y,2,0,Math.PI*2);x.fill();
+        if(d.l<=0)p.splice(i,1);
+    });
+    requestAnimationFrame(run);
+}
+run();
+document.onclick=e=>blast(e.clientX,e.clientY);
+document.ontouchstart=e=>blast(e.touches[0].clientX,e.touches[0].clientY);
+</script>
+
+</body>
+</html>

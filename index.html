@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Year ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at top, #020111, #000000 70%);
+}
+
+h1 {
+    z-index: 5;
+    font-size: 52px;
+    font-weight: 700;
+    color: white;
+    text-shadow:
+        0 0 10px #fff,
+        0 0 30px #00cfff,
+        0 0 80px #5f00ff;
+    animation: glow 3s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+/* BUTTON */
+button {
+    position: absolute;
+    bottom: 60px;
+    z-index: 10;
+    padding: 16px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(90deg,#fff,#00cfff);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎆 HAPPY NEW YEAR 🎆</h1>
+<button onclick="location.href='gift.html'">🎁 Open Gift</button>
+<canvas id="canvas"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+window.onresize = () => {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+};
+
+let stars = [], sparkles = [];
+
+setInterval(() => {
+    stars.push({
+        x: Math.random()*canvas.width,
+        y: -10,
+        s: Math.random()*2+1,
+        r: Math.random()*2+1
+    });
+}, 50);
+
+function burst(x,y){
+    const c=["#ff0000","#ffd500","#00ff85","#00cfff","#ffffff"];
+    for(let i=0;i<40;i++){
+        sparkles.push({
+            x,y,
+            vx:(Math.random()-.5)*6,
+            vy:(Math.random()-.5)*6,
+            l:60,
+            c:c[Math.floor(Math.random()*c.length)]
+        });
+    }
+}
+
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    stars.forEach((s,i)=>{
+        s.y+=s.s;
+        ctx.fillStyle="#fff";
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fill();
+        if(s.y>canvas.height) stars.splice(i,1);
+    });
+
+    sparkles.forEach((p,i)=>{
+        p.x+=p.vx;
+        p.y+=p.vy;
+        p.l--;
+        ctx.fillStyle=p.c;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,2,0,Math.PI*2);
+        ctx.fill();
+        if(p.l<=0) sparkles.splice(i,1);
+    });
+
+    requestAnimationFrame(animate);
+}
+animate();
+
+document.onclick=e=>burst(e.clientX,e.clientY);
+document.ontouchstart=e=>burst(e.touches[0].clientX,e.touches[0].clientY);
+</script>
+
+</body>
+</html>
